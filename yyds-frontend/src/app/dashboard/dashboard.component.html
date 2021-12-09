@@ -1,0 +1,6 @@
+<h2>Top Events</h2>
+<div class="events-menu">
+  <a *ngFor="let event of events" routerLink="/detail/{{event.id}}">
+    {{event.description}}
+  </a>
+</div>

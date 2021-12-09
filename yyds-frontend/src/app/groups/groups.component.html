@@ -1,0 +1,29 @@
+<h2>My Events</h2>
+
+<div>
+  <label for="new-event_o">Event Organizer: </label>
+  <input id="new-event_o" type="number" #eventOrganizer />
+  <label for="new-event_v">Event Venue: </label>
+  <input id="new-event_v" #eventVenue />
+  <label for="new-event_d">Event Description: </label>
+  <input id="new-event_d" #eventDescription />
+  <label for="new-event_t">Event Type: </label>
+  <input id="new-event_t" #eventType />
+  <label for="new-event_s">Event Start time: </label>
+  <input id="new-event_s" type="datetime-local" #eventStarttime />
+  <label for="new-event_e">Event End time: </label>
+  <input id="new-event_e" type="datetime-local" #eventEndtime />
+  <button class="add-button" (click)="add(eventOrganizer.valueAsNumber, eventDescription.value, eventType.valueAsNumber, eventVenue.valueAsNumber, eventStarttime.value, eventEndtime.value);">
+    Add event
+  </button>
+</div>
+
+<ul class="events">
+  <li *ngFor="let group of groups">
+    <a routerLink="/detail/{{group.id}}">
+      <span class="badge">{{group.organizer_id}}</span> {{group.description}}
+    </a>
+    <button class="delete" title="delete event"
+            (click)="delete(group)">x</button>
+  </li>
+</ul>

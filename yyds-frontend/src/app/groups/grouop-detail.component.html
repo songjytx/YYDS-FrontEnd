@@ -1,0 +1,20 @@
+<div *ngIf="group">
+
+  <h2>{{group.description | uppercase}} Details</h2>
+  <div><span>id: </span>{{group.id}}</div>
+  <div>
+    <label for="event_organizer">Event Organizer: </label>
+    <input id="event_organizer" [(ngModel)]="group.organizer_id" placeholder="organizer">
+    <p></p>
+    <label for="event-description">Event Description: </label>
+    <input id="event-description" [(ngModel)]="group.description" placeholder="description">
+    <p></p>
+    <label for="event-venue">Event Venue: </label>
+    <input id="event-venue" [(ngModel)]="group.venue_id" placeholder="venue">
+    <p></p>
+    <label for="event-type">Event Type: </label>
+    <input id="event-type" [(ngModel)]="group.type_id" placeholder="type">
+  </div>
+  <button (click)="goBack()">go back</button>
+  <button (click)="save()">save</button>
+</div>
