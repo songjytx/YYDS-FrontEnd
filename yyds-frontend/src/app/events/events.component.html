@@ -1,19 +1,28 @@
-<h2>My Events</h2>
+<h2>New Event</h2>
 
 <div>
-  <label for="new-event_o">Event Organizer: </label>
-  <input id="new-event_o" type="number" #eventOrganizer />
-  <label for="new-event_v">Event Venue: </label>
-  <input id="new-event_v" #eventVenue />
-  <label for="new-event_d">Event Description: </label>
-  <input id="new-event_d" #eventDescription />
+  <label for="new-event_v1">Event Venue Street: </label>
+  <input id="new-event_v1" #eventVenueStreet />
+  <label for="new-event_v2">Event Venue Unit: </label>
+  <input id="new-event_v2" #eventVenueUnit />
+  <label for="new-event_v3">Event Venue City: </label>
+  <input id="new-event_v3" #eventVenueCity />
+  <label for="new-event_v4">Event Venue State: </label>
+  <input id="new-event_v4" #eventVenueState />
+  <label for="new-event_v5">Event Venue Postal Code: </label>
+  <input id="new-event_v5" type="number" #eventVenuePostalCode />
+
   <label for="new-event_t">Event Type: </label>
-  <input id="new-event_t" #eventType />
+  <input id="new-event_t" type="number" #eventType />
+
   <label for="new-event_s">Event Start time: </label>
   <input id="new-event_s" type="datetime-local" #eventStarttime />
   <label for="new-event_e">Event End time: </label>
   <input id="new-event_e" type="datetime-local" #eventEndtime />
-  <button class="add-button" (click)="add(eventOrganizer.valueAsNumber, eventDescription.value, eventType.valueAsNumber, eventVenue.valueAsNumber, eventStarttime.value, eventEndtime.value);">
+  <label for="new-event_d">Event Description: </label>
+  <input id="new-event_d" #eventDescription />
+
+  <button class="add-button" (click)="add(eventVenueStreet.value, eventVenueUnit.value, eventVenueCity.value, eventVenueState.value, eventVenuePostalCode.valueAsNumber, eventType.valueAsNumber, eventStarttime.value, eventEndtime.value, eventDescription.value);">
     Add event
   </button>
 </div>

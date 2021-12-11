@@ -1,20 +1,21 @@
-<div *ngIf="event">
+<div *ngIf="eventDetail">
 
-  <h2>{{event.description | uppercase}} Details</h2>
-  <div><span>id: </span>{{event.id}}</div>
+  <h2>{{eventDetail.description | uppercase}} Details</h2>
   <div>
-    <label for="event_organizer">Event Organizer: </label>
-    <input id="event_organizer" [(ngModel)]="event.organizer_id" placeholder="organizer">
+    <label>Event id: {{eventDetail.id}}</label>
     <p></p>
-    <label for="event-description">Event Description: </label>
-    <input id="event-description" [(ngModel)]="event.description" placeholder="description">
+    <label>Event Organizer: </label>
+    <label> {{eventDetail.organizer.name}} </label>
     <p></p>
-    <label for="event-venue">Event Venue: </label>
-    <input id="event-venue" [(ngModel)]="event.venue_id" placeholder="venue">
+    <label>Event Description: </label>
+    <label> {{eventDetail.description}} </label>
     <p></p>
-    <label for="event-type">Event Type: </label>
-    <input id="event-type" [(ngModel)]="event.type_id" placeholder="type">
+    <label>Event Venue: </label>
+    <label> {{eventDetail.venue.street}}, {{eventDetail.venue.unit}}, {{eventDetail.venue.city}}, {{eventDetail.venue.state}}, {{eventDetail.venue.postal_code}}</label>
+    <p></p>
+    <label>Event Type: </label>
+    <label>{{eventDetail.type.name}}, {{eventDetail.type.description}} </label>
   </div>
   <button (click)="goBack()">go back</button>
-  <button (click)="save()">save</button>
+  <button (click)="join()">Join</button>
 </div>

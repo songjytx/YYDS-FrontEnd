@@ -5,15 +5,16 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Event } from './event';
 import { EventWrapper} from "./event-wrapper";
 import { MessageService } from '../messages/message.service';
+import {EventDetailPost} from "./event-detail-post";
+import {EventDetail} from "./event-detail";
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
-  // private eventsUrl = 'http://ec2-3-139-80-121.us-east-2.compute.amazonaws.com:5000/api/event';
-  private eventsUrl = 'http://127.0.0.1:5000/api/event';
-  // private eventUrl = 'http://ec2-3-139-80-121.us-east-2.compute.amazonaws.com:5000/api/event';
-  private eventUrl = 'http://127.0.0.1:5000/api/event';
+  private eventsUrl = 'https://m6p93ab8g4.execute-api.us-east-2.amazonaws.com/prod/event';
+  private eventAddUrl = 'https://m6p93ab8g4.execute-api.us-east-2.amazonaws.com/prod/new_event';
+  private eventUrl = 'http://127.0.0.1:5000/api/getEventDetail';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -30,19 +31,27 @@ export class EventService {
       tap(_ => this.log('fetched events')),
       catchError(this.handleError<Event[]>('getEvents', []))
     );
+
+    // return this.http.get<EventWrapper>(this.eventsUrl).pipe(
+    //   map(result => {
+    //     return <Event[]><unknown>result.data;
+    //   }),
+    //   tap(_ => this.log('fetched events')),
+    //   catchError(this.handleError<Event[]>('getEvents', []))
+    // );
   }
 
-  getEvent(event_id: number): Observable<Event[]> {
+  getEvent(event_id: number): Observable<EventDetail> {
     const url = `${this.eventUrl}/${event_id}`;
-    return this.http.get<Event[]>(url).pipe(
+    return this.http.get<EventDetail>(url).pipe(
       tap(_ => this.log(`fetched event id=${event_id}`)),
-        catchError(this.handleError<Event[]>(`getEvent id=${event_id}`))
+        catchError(this.handleError<EventDetail>(`getEvent id=${event_id}`))
     );
   }
 
   /** POST: add a new event to the server */
-  addEvent(event: Event): Observable<Event> {
-    return this.http.post<Event>(this.eventsUrl, event, this.httpOptions).pipe(
+  addEvent(eventDetailPost: EventDetailPost): Observable<Event> {
+    return this.http.post<Event>(this.eventAddUrl, eventDetailPost, this.httpOptions).pipe(
       tap((newEvent: Event) => this.log(`added event w/ id=${newEvent.id}`)),
       catchError(this.handleError<Event>('addEvent'))
     );
@@ -58,7 +67,7 @@ export class EventService {
     );
   }
 
-  updateEvent(event: Event): Observable<any> {
+  updateEvent(event: EventDetailPost): Observable<any> {
     return this.http.put(`${this.eventsUrl}/${event.id}`, event, this.httpOptions).pipe(
       tap(_ => this.log(`updated event id=${event.id}`)),
       catchError(this.handleError<any>('updateEvent'))
